@@ -4,7 +4,8 @@ import axios from 'axios'
 import React, {useEffect, useState} from 'react';
 
 function App() {
-  const [data,setData] = useState('')
+  const [data,setData] = useState()
+  const [data2,setData2] = useState()
 
 
   useEffect(() => {
@@ -14,11 +15,21 @@ function App() {
       console.log(response.data)
       setData(response.data.ip)
       return response.data
-    }).catch((err) => ({
-      data: null,
-      error: err,
-      ok: false
-    }))
+    }).catch((err) => {
+      console.log(err)
+    })
+  },[]);
+
+  useEffect(() => {
+    const url = 'https://api64.ipify.org?format=json'
+
+    axios.get(url).then(response => {
+      console.log(response.data)
+      setData2(response.data.ip)
+      return response.data
+    }).catch((err) => {
+      console.log(err)
+    })
   },[]);
 
   return (
@@ -30,11 +41,13 @@ function App() {
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
+          href="/#"
           rel="noopener noreferrer"
         >
-          ip {data}
+          ip IPv4 {data}
+          <br />
+          <br />
+          ip IPv6 {data2}
         </a>
       </header>
     </div>
