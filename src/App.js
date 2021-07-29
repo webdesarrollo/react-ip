@@ -1,15 +1,18 @@
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 
 function App() {
+  const [data,setData] = useState('')
+
 
   useEffect(() => {
     const url = 'https://api.ipify.org?format=json'
 
     axios.get(url).then(response => {
       console.log(response.data)
+      setData(response.data.ip)
       return response.data
     }).catch((err) => ({
       data: null,
@@ -31,7 +34,7 @@ function App() {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          ip {data}
         </a>
       </header>
     </div>
