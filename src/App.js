@@ -1,7 +1,23 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios'
+import React, {useEffect} from 'react';
 
 function App() {
+
+  useEffect(() => {
+    const url = 'https://api.ipify.org?format=json'
+
+    axios.get(url).then(response => {
+      console.log(response.data)
+      return response.data
+    }).catch((err) => ({
+      data: null,
+      error: err,
+      ok: false
+    }))
+  },[]);
+
   return (
     <div className="App">
       <header className="App-header">
